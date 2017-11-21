@@ -4,6 +4,8 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
+#include <JlCompress.h>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -25,6 +27,9 @@ void MainWindow::on_actionAbout_triggered()
 {
     QString about_text = "A simple Pathfinder race and class editor for Fantasy Grounds";
     QMessageBox::about(this, "About", about_text);
+
+    JlCompress::compressFile("C:/temp/test.zip", "C:/temp/test.txt");
+    JlCompress::extractDir("C:/temp/test.zip", "C:/temp/");
 }
 
 void MainWindow::on_actionOpen_triggered()
