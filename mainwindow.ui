@@ -27,65 +27,65 @@
           <string>Races</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Races</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="1">
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="label_race_description">
             <property name="text">
              <string>Race description</string>
             </property>
            </widget>
           </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_races">
+            <property name="text">
+             <string>Races</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="2">
-           <widget class="QLabel" name="label_3">
+           <widget class="QLabel" name="label_racial_trait">
             <property name="text">
              <string>Racial traits</string>
             </property>
            </widget>
           </item>
           <item row="0" column="3">
-           <widget class="QLabel" name="label_6">
+           <widget class="QLabel" name="label_alternative_racial_trait">
             <property name="text">
              <string>Alternative racial traits</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0" rowspan="3">
-           <widget class="QListWidget" name="listWidget"/>
+           <widget class="QListWidget" name="listWidget_races"/>
           </item>
           <item row="1" column="1" rowspan="3">
-           <widget class="QTextEdit" name="textEdit_2"/>
+           <widget class="QTextEdit" name="textEdit_race_description"/>
           </item>
           <item row="1" column="2">
-           <widget class="QListWidget" name="listWidget_2"/>
-          </item>
-          <item row="1" column="3">
-           <widget class="QListWidget" name="listWidget_3"/>
-          </item>
-          <item row="2" column="2">
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>Trait description</string>
-            </property>
-           </widget>
+           <widget class="QListWidget" name="listWidget_racial_traits"/>
           </item>
           <item row="2" column="3">
-           <widget class="QLabel" name="label_5">
+           <widget class="QLabel" name="label_alternative_trait_description">
             <property name="text">
              <string>Alternative trait description</string>
             </property>
            </widget>
           </item>
+          <item row="1" column="3">
+           <widget class="QListWidget" name="listWidget_alernative_racial_traits"/>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_trait_description">
+            <property name="text">
+             <string>Trait description</string>
+            </property>
+           </widget>
+          </item>
           <item row="3" column="2">
-           <widget class="QTextEdit" name="textEdit"/>
+           <widget class="QTextEdit" name="textEdit_racial_trait_description"/>
           </item>
           <item row="3" column="3">
-           <widget class="QTextEdit" name="textEdit_3"/>
+           <widget class="QTextEdit" name="textEdit_alternative_trait_description"/>
           </item>
          </layout>
         </widget>
