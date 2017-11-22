@@ -33,10 +33,16 @@ private slots:
 
     void on_listWidget_races_itemSelectionChanged();
 
+    void on_listWidget_racial_traits_customContextMenuRequested(const QPoint &pos);
+
+    void on_listWidget_alernative_racial_traits_customContextMenuRequested(const QPoint &pos);
+
 private:
     Ui::MainWindow *ui;
     QString current_file_path = "";
-    QHash<QListWidgetItem *, QString> race_descriptions;
+    QHash<QListWidgetItem*, QString> race_descriptions;
+    QHash<QListWidgetItem*, QVector<QListWidgetItem*>> race_traits;
+    QHash<QListWidgetItem*, QVector<QListWidgetItem*>> race_alternative_traits;
 };
 
 #endif // MAINWINDOW_H

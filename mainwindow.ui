@@ -78,7 +78,11 @@
            <widget class="QTextEdit" name="textEdit_race_description"/>
           </item>
           <item row="1" column="2">
-           <widget class="QListWidget" name="listWidget_racial_traits"/>
+           <widget class="QListWidget" name="listWidget_racial_traits">
+            <property name="contextMenuPolicy">
+             <enum>Qt::CustomContextMenu</enum>
+            </property>
+           </widget>
           </item>
           <item row="2" column="3">
            <widget class="QLabel" name="label_alternative_trait_description">
@@ -88,7 +92,11 @@
            </widget>
           </item>
           <item row="1" column="3">
-           <widget class="QListWidget" name="listWidget_alernative_racial_traits"/>
+           <widget class="QListWidget" name="listWidget_alernative_racial_traits">
+            <property name="contextMenuPolicy">
+             <enum>Qt::CustomContextMenu</enum>
+            </property>
+           </widget>
           </item>
           <item row="2" column="2">
            <widget class="QLabel" name="label_trait_description">

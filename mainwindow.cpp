@@ -28,7 +28,7 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    QString about_text = "A simple Pathfinder race and class editor for Fantasy Grounds";
+    QString about_text = "A simple Pathfinder race and class editor for Fantasy Grounds\n Author: Faelwen";
     QMessageBox::about(this, "About", about_text);
 }
 
@@ -37,8 +37,8 @@ void MainWindow::on_actionOpen_triggered()
     current_file_path = QFileDialog::getOpenFileName(this, "Open file");
     QFile file(current_file_path);
     if(!file.open(QFile::ReadOnly | QFile::Text)) {
-            QMessageBox::warning(this, "Error", "File not opened");
-            return;
+        QMessageBox::warning(this, "Error", "File not opened");
+        return;
     }
 
     QStringList module_content = JlCompress::getFileList(current_file_path);
@@ -79,12 +79,12 @@ void MainWindow::on_actionOpen_triggered()
 
     // TODO parse xml and insert results in mainwindow
     while(!node.isNull()) {
-       QDomElement element = node.toElement();
-       if(!element.isNull())
-       {
+        QDomElement element = node.toElement();
+        if(!element.isNull())
+        {
 
-           node = node.nextSibling();
-       }
+            node = node.nextSibling();
+        }
 
     }
 }
@@ -103,8 +103,8 @@ void MainWindow::on_actionSave_as_triggered()
     current_file_path = QFileDialog::getSaveFileName(this, "Open file");
     QFile file(current_file_path);
     if(!file.open(QFile::WriteOnly | QFile::Text)) {
-            QMessageBox::warning(this, "Error", "file not opened");
-            return;
+        QMessageBox::warning(this, "Error", "file not opened");
+        return;
     }
     // TODO Generate new definition.xml and zip with module
 }
@@ -124,8 +124,8 @@ void MainWindow::on_listWidget_races_customContextMenuRequested(const QPoint &po
             new_item->setFlags(new_item->flags() | Qt::ItemIsEditable);
             ui->listWidget_races->addItem(new_item);
             race_descriptions.insert(new_item, "");
-
-    //    ui->listWidget_races->addItem("New Race");
+            QVector<QListWidgetItem*> new_trait_list;
+            race_traits.insert(ui->listWidget_races->currentItem(), new_trait_list);
         }
         else if (selectedItem->text() == "Delete") {
             int row = ui->listWidget_races->currentRow();
@@ -144,5 +144,53 @@ void MainWindow::on_listWidget_races_itemSelectionChanged()
 {
     if (ui->listWidget_races->currentRow() >= 0) {
         ui->textEdit_race_description->document()->setHtml(race_descriptions[ui->listWidget_races->currentItem()]);
+    }
+}
+
+void MainWindow::on_listWidget_racial_traits_customContextMenuRequested(const QPoint &pos)
+{
+    if (ui->listWidget_races->currentRow() >= 0) {
+        QPoint globalPos = ui->listWidget_racial_traits->viewport()->mapToGlobal(pos);
+        QMenu myMenu;
+        myMenu.addAction("New");
+        myMenu.addAction("Delete");
+        QAction* selectedItem = myMenu.exec(globalPos);
+        if (selectedItem) {
+            if (selectedItem->text() == "New") {
+                QListWidgetItem *new_item = new QListWidgetItem("New Trait", Q_NULLPTR, QListWidgetItem::Type);
+                new_item->setFlags(new_item->flags() | Qt::ItemIsEditable);
+                ui->listWidget_racial_traits->addItem(new_item);
+                race_traits[ui->listWidget_races->currentItem()].append(new_item);
+            }
+            else if (selectedItem->text() == "Delete") {
+                int row = ui->listWidget_racial_traits->currentRow();
+                race_traits.remove(ui->listWidget_racial_traits->currentItem());
+                ui->listWidget_racial_traits->takeItem(row);
+            }
+        }
+    }
+}
+
+void MainWindow::on_listWidget_alernative_racial_traits_customContextMenuRequested(const QPoint &pos)
+{
+    if (ui->listWidget_races->currentRow() >= 0) {
+        QPoint globalPos = ui->listWidget_alernative_racial_traits->viewport()->mapToGlobal(pos);
+        QMenu myMenu;
+        myMenu.addAction("New");
+        myMenu.addAction("Delete");
+        QAction* selectedItem = myMenu.exec(globalPos);
+        if (selectedItem) {
+            if (selectedItem->text() == "New") {
+                QListWidgetItem *new_item = new QListWidgetItem("New Trait", Q_NULLPTR, QListWidgetItem::Type);
+                new_item->setFlags(new_item->flags() | Qt::ItemIsEditable);
+                ui->listWidget_alernative_racial_traits->addItem(new_item);
+                race_alternative_traits[ui->listWidget_races->currentItem()].append(new_item);
+            }
+            else if (selectedItem->text() == "Delete") {
+                int row = ui->listWidget_alernative_racial_traits->currentRow();
+                race_alternative_traits.remove(ui->listWidget_alernative_racial_traits->currentItem());
+                ui->listWidget_alernative_racial_traits->takeItem(row);
+            }
+        }
     }
 }
