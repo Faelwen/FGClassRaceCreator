@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListWidgetItem>
 
 namespace Ui {
 class MainWindow;
@@ -28,9 +29,14 @@ private slots:
 
     void on_listWidget_races_customContextMenuRequested(const QPoint &pos);
 
+    void on_textEdit_race_description_textChanged();
+
+    void on_listWidget_races_itemSelectionChanged();
+
 private:
     Ui::MainWindow *ui;
     QString current_file_path = "";
+    QHash<QListWidgetItem *, QString> race_descriptions;
 };
 
 #endif // MAINWINDOW_H

@@ -123,12 +123,26 @@ void MainWindow::on_listWidget_races_customContextMenuRequested(const QPoint &po
             QListWidgetItem *new_item = new QListWidgetItem("New Race", Q_NULLPTR, QListWidgetItem::Type);
             new_item->setFlags(new_item->flags() | Qt::ItemIsEditable);
             ui->listWidget_races->addItem(new_item);
+            race_descriptions.insert(new_item, "");
 
     //    ui->listWidget_races->addItem("New Race");
         }
         else if (selectedItem->text() == "Delete") {
             int row = ui->listWidget_races->currentRow();
+            race_descriptions.remove(ui->listWidget_races->currentItem());
             ui->listWidget_races->takeItem(row);
         }
+    }
+}
+
+void MainWindow::on_textEdit_race_description_textChanged()
+{
+    race_descriptions[ ui->listWidget_races->currentItem()] = ui->textEdit_race_description->document()->toHtml();
+}
+
+void MainWindow::on_listWidget_races_itemSelectionChanged()
+{
+    if (ui->listWidget_races->currentRow() >= 0) {
+        ui->textEdit_race_description->document()->setHtml(race_descriptions[ui->listWidget_races->currentItem()]);
     }
 }
