@@ -135,14 +135,13 @@ void MainWindow::on_listWidget_races_customContextMenuRequested(const QPoint &po
             race_descriptions.insert(new_item, "");
             QList<QListWidgetItem*> new_trait_list;
             race_traits.insert(new_item, new_trait_list);
-            qDebug() << race_traits[new_item].count();
         }
         else if (selectedItem->text() == "Delete") {
             race_descriptions.remove(ui->listWidget_races->currentItem());
             race_traits.remove(ui->listWidget_races->currentItem());
             race_alternative_traits.remove(ui->listWidget_races->currentItem());
-            empty_list(ui->listWidget_racial_traits);
-            empty_list(ui->listWidget_alernative_racial_traits);
+            ui->listWidget_racial_traits->clear();
+            ui->listWidget_alernative_racial_traits->clear();
             delete ui->listWidget_races->currentItem();
         }
     }
@@ -171,6 +170,12 @@ void MainWindow::on_listWidget_races_itemSelectionChanged()
             }
         }
     }
+    if (ui->listWidget_racial_traits->currentRow() < 0) {
+        ui->textEdit_racial_trait_description->document()->clear();
+    }
+    if (ui->listWidget_alernative_racial_traits->currentRow() < 0) {
+        ui->textEdit_alternative_trait_description->document()->clear();
+    }
 }
 
 void MainWindow::on_listWidget_racial_traits_customContextMenuRequested(const QPoint &pos)
@@ -187,7 +192,6 @@ void MainWindow::on_listWidget_racial_traits_customContextMenuRequested(const QP
                 new_item->setFlags(new_item->flags() | Qt::ItemIsEditable);
                 ui->listWidget_racial_traits->addItem(new_item);
                 race_traits[ui->listWidget_races->currentItem()].append(new_item);
-                qDebug() << race_traits[ui->listWidget_races->currentItem()].count();
             }
             else if (selectedItem->text() == "Delete") {
                 race_traits[ui->listWidget_races->currentItem()].removeOne(ui->listWidget_racial_traits->currentItem());
@@ -217,5 +221,33 @@ void MainWindow::on_listWidget_alernative_racial_traits_customContextMenuRequest
                 delete ui->listWidget_alernative_racial_traits->currentItem();
             }
         }
+    }
+}
+
+void MainWindow::on_textEdit_racial_trait_description_textChanged()
+{
+    if(ui->listWidget_races->currentRow() >= 0 && ui->listWidget_racial_traits->currentRow() >= 0) {
+        race_traits_descriptions[ui->listWidget_racial_traits->currentItem()] = ui->textEdit_racial_trait_description->document()->toHtml();
+    }
+}
+
+void MainWindow::on_textEdit_alternative_trait_description_textChanged()
+{
+    if(ui->listWidget_races->currentRow() >= 0 && ui->listWidget_alernative_racial_traits->currentRow() >= 0) {
+        race_alternative_traits_descriptions[ui->listWidget_alernative_racial_traits->currentItem()] = ui->textEdit_alternative_trait_description->document()->toHtml();
+    }
+}
+
+void MainWindow::on_listWidget_racial_traits_itemSelectionChanged()
+{
+    if (ui->listWidget_races->currentRow() >= 0 && ui->listWidget_racial_traits->currentRow() >= 0) {
+        ui->textEdit_racial_trait_description->document()->setHtml(race_traits_descriptions[ui->listWidget_racial_traits->currentItem()]);
+    }
+}
+
+void MainWindow::on_listWidget_alernative_racial_traits_itemSelectionChanged()
+{
+    if (ui->listWidget_races->currentRow() >= 0 && ui->listWidget_alernative_racial_traits->currentRow() >= 0) {
+        ui->textEdit_alternative_trait_description->document()->setHtml(race_alternative_traits_descriptions[ui->listWidget_alernative_racial_traits->currentItem()]);
     }
 }
