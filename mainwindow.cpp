@@ -6,6 +6,7 @@
 
 #include <QtXml>
 
+#include <QDebug>
 
 #include <JlCompress.h>
 
@@ -110,6 +111,14 @@ void MainWindow::on_actionSave_as_triggered()
 }
 
 
+// Empty QListWidget without deleting the QListWidgetItems
+void MainWindow::empty_list(QListWidget * list)
+{
+    int max = list->count();
+    for(int i = 0; i < max; i++) {
+        list->takeItem(0);
+    }
+}
 
 void MainWindow::on_listWidget_races_customContextMenuRequested(const QPoint &pos)
 {
@@ -124,13 +133,17 @@ void MainWindow::on_listWidget_races_customContextMenuRequested(const QPoint &po
             new_item->setFlags(new_item->flags() | Qt::ItemIsEditable);
             ui->listWidget_races->addItem(new_item);
             race_descriptions.insert(new_item, "");
-            QVector<QListWidgetItem*> new_trait_list;
-            race_traits.insert(ui->listWidget_races->currentItem(), new_trait_list);
+            QList<QListWidgetItem*> new_trait_list;
+            race_traits.insert(new_item, new_trait_list);
+            qDebug() << race_traits[new_item].count();
         }
         else if (selectedItem->text() == "Delete") {
-            int row = ui->listWidget_races->currentRow();
             race_descriptions.remove(ui->listWidget_races->currentItem());
-            ui->listWidget_races->takeItem(row);
+            race_traits.remove(ui->listWidget_races->currentItem());
+            race_alternative_traits.remove(ui->listWidget_races->currentItem());
+            empty_list(ui->listWidget_racial_traits);
+            empty_list(ui->listWidget_alernative_racial_traits);
+            delete ui->listWidget_races->currentItem();
         }
     }
 }
@@ -144,6 +157,19 @@ void MainWindow::on_listWidget_races_itemSelectionChanged()
 {
     if (ui->listWidget_races->currentRow() >= 0) {
         ui->textEdit_race_description->document()->setHtml(race_descriptions[ui->listWidget_races->currentItem()]);
+        empty_list(ui->listWidget_racial_traits);
+        empty_list(ui->listWidget_alernative_racial_traits);
+        QListWidgetItem* item;
+        foreach (item, race_traits[ui->listWidget_races->currentItem()]) {
+            if(item) {
+                ui->listWidget_racial_traits->addItem(item);
+            }
+        }
+        foreach (item, race_alternative_traits[ui->listWidget_races->currentItem()]) {
+            if(item) {
+                ui->listWidget_alernative_racial_traits->addItem(item);
+            }
+        }
     }
 }
 
@@ -161,11 +187,11 @@ void MainWindow::on_listWidget_racial_traits_customContextMenuRequested(const QP
                 new_item->setFlags(new_item->flags() | Qt::ItemIsEditable);
                 ui->listWidget_racial_traits->addItem(new_item);
                 race_traits[ui->listWidget_races->currentItem()].append(new_item);
+                qDebug() << race_traits[ui->listWidget_races->currentItem()].count();
             }
             else if (selectedItem->text() == "Delete") {
-                int row = ui->listWidget_racial_traits->currentRow();
-                race_traits.remove(ui->listWidget_racial_traits->currentItem());
-                ui->listWidget_racial_traits->takeItem(row);
+                race_traits[ui->listWidget_races->currentItem()].removeOne(ui->listWidget_racial_traits->currentItem());
+                delete ui->listWidget_racial_traits->currentItem();
             }
         }
     }
@@ -181,15 +207,14 @@ void MainWindow::on_listWidget_alernative_racial_traits_customContextMenuRequest
         QAction* selectedItem = myMenu.exec(globalPos);
         if (selectedItem) {
             if (selectedItem->text() == "New") {
-                QListWidgetItem *new_item = new QListWidgetItem("New Trait", Q_NULLPTR, QListWidgetItem::Type);
+                QListWidgetItem *new_item = new QListWidgetItem("New Alternative Trait", Q_NULLPTR, QListWidgetItem::Type);
                 new_item->setFlags(new_item->flags() | Qt::ItemIsEditable);
                 ui->listWidget_alernative_racial_traits->addItem(new_item);
                 race_alternative_traits[ui->listWidget_races->currentItem()].append(new_item);
             }
             else if (selectedItem->text() == "Delete") {
-                int row = ui->listWidget_alernative_racial_traits->currentRow();
-                race_alternative_traits.remove(ui->listWidget_alernative_racial_traits->currentItem());
-                ui->listWidget_alernative_racial_traits->takeItem(row);
+                race_alternative_traits[ui->listWidget_races->currentItem()].removeOne(ui->listWidget_alernative_racial_traits->currentItem());
+                delete ui->listWidget_alernative_racial_traits->currentItem();
             }
         }
     }

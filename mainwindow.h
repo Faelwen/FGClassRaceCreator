@@ -41,8 +41,9 @@ private:
     Ui::MainWindow *ui;
     QString current_file_path = "";
     QHash<QListWidgetItem*, QString> race_descriptions;
-    QHash<QListWidgetItem*, QVector<QListWidgetItem*>> race_traits;
+    QHash<QListWidgetItem*, QList<QListWidgetItem*>> race_traits;
     QHash<QListWidgetItem*, QVector<QListWidgetItem*>> race_alternative_traits;
+    void empty_list(QListWidget*);
 };
 
 #endif // MAINWINDOW_H
