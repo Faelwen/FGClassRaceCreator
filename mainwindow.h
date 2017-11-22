@@ -26,6 +26,8 @@ private slots:
 
     void on_actionSave_as_triggered();
 
+    void on_listWidget_races_customContextMenuRequested(const QPoint &pos);
+
 private:
     Ui::MainWindow *ui;
     QString current_file_path = "";

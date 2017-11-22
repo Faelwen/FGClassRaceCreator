@@ -10,6 +10,9 @@
     <height>630</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>Pathfinder Race &amp; Class editor for Fantasy Grounds</string>
   </property>
@@ -56,7 +59,17 @@
            </widget>
           </item>
           <item row="1" column="0" rowspan="3">
-           <widget class="QListWidget" name="listWidget_races"/>
+           <widget class="QListWidget" name="listWidget_races">
+            <property name="contextMenuPolicy">
+             <enum>Qt::CustomContextMenu</enum>
+            </property>
+            <property name="dragEnabled">
+             <bool>true</bool>
+            </property>
+            <property name="dragDropMode">
+             <enum>QAbstractItemView::InternalMove</enum>
+            </property>
+           </widget>
           </item>
           <item row="1" column="1" rowspan="3">
            <widget class="QTextEdit" name="textEdit_race_description"/>

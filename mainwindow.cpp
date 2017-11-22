@@ -108,3 +108,27 @@ void MainWindow::on_actionSave_as_triggered()
     }
     // TODO Generate new definition.xml and zip with module
 }
+
+
+
+void MainWindow::on_listWidget_races_customContextMenuRequested(const QPoint &pos)
+{
+    QPoint globalPos = ui->listWidget_races->viewport()->mapToGlobal(pos);
+    QMenu myMenu;
+    myMenu.addAction("New");
+    myMenu.addAction("Delete");
+    QAction* selectedItem = myMenu.exec(globalPos);
+    if (selectedItem) {
+        if (selectedItem->text() == "New") {
+            QListWidgetItem *new_item = new QListWidgetItem("New Race", Q_NULLPTR, QListWidgetItem::Type);
+            new_item->setFlags(new_item->flags() | Qt::ItemIsEditable);
+            ui->listWidget_races->addItem(new_item);
+
+    //    ui->listWidget_races->addItem("New Race");
+        }
+        else if (selectedItem->text() == "Delete") {
+            int row = ui->listWidget_races->currentRow();
+            ui->listWidget_races->takeItem(row);
+        }
+    }
+}
