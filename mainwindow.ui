@@ -85,7 +85,7 @@
              </attribute>
              <layout class="QGridLayout" name="gridLayout_6">
               <item row="0" column="0">
-               <widget class="QPlainTextEdit" name="plainTextEdit_race_description_source"/>
+               <widget class="CustomTextEdit" name="plainTextEdit_race_description_source"/>
               </item>
              </layout>
             </widget>
@@ -147,7 +147,7 @@
              </attribute>
              <layout class="QGridLayout" name="gridLayout_3">
               <item row="0" column="0">
-               <widget class="QPlainTextEdit" name="plainTextEdit_racial_trait_description_source"/>
+               <widget class="CustomTextEdit" name="plainTextEdit_racial_trait_description_source"/>
               </item>
              </layout>
             </widget>
@@ -181,7 +181,7 @@
              </attribute>
              <layout class="QGridLayout" name="gridLayout_4">
               <item row="0" column="0">
-               <widget class="QPlainTextEdit" name="plainTextEdit_alternative_trait_description_source"/>
+               <widget class="CustomTextEdit" name="plainTextEdit_alternative_trait_description_source"/>
               </item>
              </layout>
             </widget>
@@ -281,6 +281,28 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>CustomTextEdit</class>
+   <extends>QPlainTextEdit</extends>
+   <header>customtextedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>listWidget_racial_traits</tabstop>
+  <tabstop>textEdit_racial_trait_description_preview</tabstop>
+  <tabstop>listWidget_races</tabstop>
+  <tabstop>listWidget_alernative_racial_traits</tabstop>
+  <tabstop>tabWidget_2</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>plainTextEdit_racial_trait_description_source</tabstop>
+  <tabstop>tabWidget_3</tabstop>
+  <tabstop>plainTextEdit_alternative_trait_description_source</tabstop>
+  <tabstop>textEdit_alternative_trait_description_preview</tabstop>
+  <tabstop>tabWidget_4</tabstop>
+  <tabstop>plainTextEdit_race_description_source</tabstop>
+  <tabstop>textEdit_race_description_preview</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
