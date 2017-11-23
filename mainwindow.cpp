@@ -192,6 +192,7 @@ void MainWindow::on_listWidget_racial_traits_customContextMenuRequested(const QP
                 new_item->setFlags(new_item->flags() | Qt::ItemIsEditable);
                 ui->listWidget_racial_traits->addItem(new_item);
                 race_traits[ui->listWidget_races->currentItem()].append(new_item);
+                ui->textEdit_racial_trait_description->setHtml("<b>Test</b>");
             }
             else if (selectedItem->text() == "Delete") {
                 race_traits[ui->listWidget_races->currentItem()].removeOne(ui->listWidget_racial_traits->currentItem());
@@ -242,6 +243,7 @@ void MainWindow::on_listWidget_racial_traits_itemSelectionChanged()
 {
     if (ui->listWidget_races->currentRow() >= 0 && ui->listWidget_racial_traits->currentRow() >= 0) {
         ui->textEdit_racial_trait_description->document()->setHtml(race_traits_descriptions[ui->listWidget_racial_traits->currentItem()]);
+        qDebug() << ui->textEdit_racial_trait_description->toHtml() ;
     }
 }
 
